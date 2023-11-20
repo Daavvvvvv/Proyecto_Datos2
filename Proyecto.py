@@ -1,5 +1,6 @@
 import heapq
 import json
+from collections import Counter
 
 class Nodo:
     def __init__(self, caracter, frecuencia):
@@ -8,7 +9,6 @@ class Nodo:
         self.izquierda = None
         self.derecha = None
 
-    # Definimos una comparación para que heapq pueda ordenar los nodos
     def __lt__(self, otro):
         return self.frecuencia < otro.frecuencia
 
@@ -27,7 +27,7 @@ def crear_arbol_huffman(frecuencia_caracteres):
 
         heapq.heappush(heap, nodo_fusionado)
 
-    return heap[0]  # Retorna la raíz del árbol de Huffma
+    return heap[0]
 
 def generar_codigos_huffman(nodo, codigo_actual="", codigo_caracteres={}):
     if nodo is None:
@@ -40,15 +40,14 @@ def generar_codigos_huffman(nodo, codigo_actual="", codigo_caracteres={}):
 
     generar_codigos_huffman(nodo.izquierda, codigo_actual + "0", codigo_caracteres)
     generar_codigos_huffman(nodo.derecha, codigo_actual + "1", codigo_caracteres)
+    
+    return codigo_caracteres
 
 def cifrar_texto(texto, arbol_huffman):
-    codigos = {}
-    generar_codigos_huffman(arbol_huffman, "", codigos)
-
+    codigos = generar_codigos_huffman(arbol_huffman)
     texto_cifrado = ""
     for caracter in texto:
         texto_cifrado += codigos.get(caracter, "")
-
     return texto_cifrado
 
 def reconstruir_arbol(datos_nodo):
@@ -67,6 +66,18 @@ def reconstruir_arbol(datos_nodo):
 
     return nodo
 
+def arbol_a_json(nodo):
+    if nodo is None:
+        return None
+    return {
+        'caracter': nodo.caracter,
+        'frecuencia': nodo.frecuencia,
+        'izq': arbol_a_json(nodo.izquierda),
+        'der': arbol_a_json(nodo.derecha)
+    }
+
+
+
 
 def descifrar_texto(texto_cifrado, arbol_huffman):
     texto_descifrado = ""
@@ -75,8 +86,12 @@ def descifrar_texto(texto_cifrado, arbol_huffman):
     for bit in texto_cifrado:
         if bit == '0':
             nodo_actual = nodo_actual.izquierda
-        else:
+        else:  # bit == '1'
             nodo_actual = nodo_actual.derecha
+
+        # Verificar si nodo_actual es None
+        if nodo_actual is None:
+            raise ValueError("Secuencia de bits inválida en el texto cifrado")
 
         if nodo_actual.caracter is not None:
             texto_descifrado += nodo_actual.caracter
@@ -84,16 +99,17 @@ def descifrar_texto(texto_cifrado, arbol_huffman):
 
     return texto_descifrado
 
-
 def recorrer_arbol_preorden(nodo, profundidad=0):
     if nodo is not None:
         # Imprime el carácter y la frecuencia de cada nodo
-        print("  " * profundidad + f"Carácter: {nodo.caracter}, Frecuencia: {nodo.frecuencia}")
         
         # Recorre el subárbol izquierdo y luego el derecho
         recorrer_arbol_preorden(nodo.izquierda, profundidad + 1)
         recorrer_arbol_preorden(nodo.derecha, profundidad + 1)
 
+def guardar_texto_cifrado(texto_cifrado, nombre_archivo):
+    with open(nombre_archivo, 'w', encoding='utf-8') as archivo:
+        archivo.write(texto_cifrado)
 
 
 def leer_texto(arch):
@@ -108,14 +124,27 @@ def leer_archivo_txt(ruta_archivo):
 
 
 
-arch = './arbol_huffman_actividad_1.json'
+arch = './arbol_huffman.json'
 datos_arbol = leer_texto(arch)
 arbol_huffman = reconstruir_arbol(datos_arbol)
 recorrer_arbol_preorden(arbol_huffman)
 
 
-ruta_archivo_txt = './texto_actividad_1.txt' 
+ruta_archivo_txt = './texto_cifrado.txt' 
 texto_cifrado = leer_archivo_txt(ruta_archivo_txt)
 
 mensaje_descifrado = descifrar_texto(texto_cifrado, arbol_huffman)
 print(mensaje_descifrado)
+
+
+enlace = "https://github.com/Daavvvvvv/Proyecto_Datos2/tree/master"
+frecuencias = Counter(enlace)
+arbol_huffman= crear_arbol_huffman(frecuencias)
+
+datos_arbol_json = arbol_a_json(arbol_huffman)
+
+with open('arbol_huffman.json', 'w', encoding='utf-8') as archivo:
+    json.dump(datos_arbol_json, archivo, ensure_ascii=False, indent=4)
+
+cifrado = cifrar_texto(enlace, arbol_huffman)
+guardar_texto_cifrado(cifrado, "texto_cifrado.txt")
