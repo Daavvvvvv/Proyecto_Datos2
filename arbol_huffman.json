@@ -11,13 +11,33 @@
                 "caracter": null,
                 "frecuencia": 6,
                 "izq": {
-                    "caracter": "r",
+                    "caracter": null,
                     "frecuencia": 3,
-                    "izq": null,
-                    "der": null
+                    "izq": {
+                        "caracter": "g",
+                        "frecuencia": 1,
+                        "izq": null,
+                        "der": null
+                    },
+                    "der": {
+                        "caracter": null,
+                        "frecuencia": 2,
+                        "izq": {
+                            "caracter": "y",
+                            "frecuencia": 1,
+                            "izq": null,
+                            "der": null
+                        },
+                        "der": {
+                            "caracter": ".",
+                            "frecuencia": 1,
+                            "izq": null,
+                            "der": null
+                        }
+                    }
                 },
                 "der": {
-                    "caracter": "s",
+                    "caracter": "r",
                     "frecuencia": 3,
                     "izq": null,
                     "der": null
@@ -57,55 +77,19 @@
                 "caracter": null,
                 "frecuencia": 7,
                 "izq": {
-                    "caracter": null,
+                    "caracter": "s",
                     "frecuencia": 3,
-                    "izq": {
-                        "caracter": "P",
-                        "frecuencia": 1,
-                        "izq": null,
-                        "der": null
-                    },
-                    "der": {
-                        "caracter": "h",
-                        "frecuencia": 2,
-                        "izq": null,
-                        "der": null
-                    }
-                },
-                "der": {
-                    "caracter": "a",
-                    "frecuencia": 4,
                     "izq": null,
                     "der": null
-                }
-            },
-            "der": {
-                "caracter": null,
-                "frecuencia": 8,
-                "izq": {
+                },
+                "der": {
                     "caracter": null,
                     "frecuencia": 4,
                     "izq": {
                         "caracter": null,
                         "frecuencia": 2,
                         "izq": {
-                            "caracter": "2",
-                            "frecuencia": 1,
-                            "izq": null,
-                            "der": null
-                        },
-                        "der": {
-                            "caracter": "_",
-                            "frecuencia": 1,
-                            "izq": null,
-                            "der": null
-                        }
-                    },
-                    "der": {
-                        "caracter": null,
-                        "frecuencia": 2,
-                        "izq": {
-                            "caracter": ":",
+                            "caracter": "P",
                             "frecuencia": 1,
                             "izq": null,
                             "der": null
@@ -116,33 +100,39 @@
                             "izq": null,
                             "der": null
                         }
-                    }
-                },
-                "der": {
-                    "caracter": null,
-                    "frecuencia": 4,
-                    "izq": {
-                        "caracter": "D",
-                        "frecuencia": 2,
-                        "izq": null,
-                        "der": null
                     },
                     "der": {
                         "caracter": null,
                         "frecuencia": 2,
                         "izq": {
-                            "caracter": "p",
+                            "caracter": "_",
                             "frecuencia": 1,
                             "izq": null,
                             "der": null
                         },
                         "der": {
-                            "caracter": "g",
+                            "caracter": ":",
                             "frecuencia": 1,
                             "izq": null,
                             "der": null
                         }
                     }
+                }
+            },
+            "der": {
+                "caracter": null,
+                "frecuencia": 8,
+                "izq": {
+                    "caracter": "o",
+                    "frecuencia": 4,
+                    "izq": null,
+                    "der": null
+                },
+                "der": {
+                    "caracter": "a",
+                    "frecuencia": 4,
+                    "izq": null,
+                    "der": null
                 }
             }
         },
@@ -153,20 +143,10 @@
                 "caracter": null,
                 "frecuencia": 8,
                 "izq": {
-                    "caracter": null,
+                    "caracter": "e",
                     "frecuencia": 4,
-                    "izq": {
-                        "caracter": "m",
-                        "frecuencia": 2,
-                        "izq": null,
-                        "der": null
-                    },
-                    "der": {
-                        "caracter": "c",
-                        "frecuencia": 2,
-                        "izq": null,
-                        "der": null
-                    }
+                    "izq": null,
+                    "der": null
                 },
                 "der": {
                     "caracter": null,
@@ -175,13 +155,13 @@
                         "caracter": null,
                         "frecuencia": 2,
                         "izq": {
-                            "caracter": ".",
+                            "caracter": "p",
                             "frecuencia": 1,
                             "izq": null,
                             "der": null
                         },
                         "der": {
-                            "caracter": "y",
+                            "caracter": "2",
                             "frecuencia": 1,
                             "izq": null,
                             "der": null
@@ -209,16 +189,36 @@
                 "caracter": null,
                 "frecuencia": 8,
                 "izq": {
-                    "caracter": "o",
+                    "caracter": null,
                     "frecuencia": 4,
-                    "izq": null,
-                    "der": null
+                    "izq": {
+                        "caracter": "h",
+                        "frecuencia": 2,
+                        "izq": null,
+                        "der": null
+                    },
+                    "der": {
+                        "caracter": "m",
+                        "frecuencia": 2,
+                        "izq": null,
+                        "der": null
+                    }
                 },
                 "der": {
-                    "caracter": "e",
+                    "caracter": null,
                     "frecuencia": 4,
-                    "izq": null,
-                    "der": null
+                    "izq": {
+                        "caracter": "D",
+                        "frecuencia": 2,
+                        "izq": null,
+                        "der": null
+                    },
+                    "der": {
+                        "caracter": "c",
+                        "frecuencia": 2,
+                        "izq": null,
+                        "der": null
+                    }
                 }
             }
         }

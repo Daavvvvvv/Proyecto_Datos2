@@ -1,6 +1,32 @@
-import heapq
 import json
 from collections import Counter
+
+class heapour:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, item):
+        self.heap.append(item)
+        self._sift_up(len(self.heap) - 1)
+
+    def pop(self):
+        if len(self.heap) == 0:
+            raise IndexError("Pop from empty heap")
+        self._swap(0, len(self.heap) - 1)
+        item = self.heap.pop()
+        self._sift_down(0)
+        return item
+
+
+
+def contar_frecuencias(texto):
+    frecuencias = {}
+    for caracter in texto:
+        if caracter in frecuencias:
+            frecuencias[caracter] += 1
+        else:
+            frecuencias[caracter] = 1
+    return frecuencias
 
 
 
@@ -16,21 +42,21 @@ class Nodo:
         return self.frecuencia < otro.frecuencia
 
 def crear_arbol_huffman(frecuencia_caracteres):
-    heap = []
+    heap = heapour()
     for caracter, frecuencia in frecuencia_caracteres.items():
-        heapq.heappush(heap, Nodo(caracter, frecuencia))
+        heap.push(Nodo(caracter, frecuencia))
 
-    while len(heap) > 1:
-        nodo_izquierda = heapq.heappop(heap)
-        nodo_derecha = heapq.heappop(heap)
+    while len(heap.heap) > 1:
+        nodo_izquierda = heap.pop()
+        nodo_derecha = heap.pop()
 
         nodo_fusionado = Nodo(None, nodo_izquierda.frecuencia + nodo_derecha.frecuencia)
         nodo_fusionado.izquierda = nodo_izquierda
         nodo_fusionado.derecha = nodo_derecha
 
-        heapq.heappush(heap, nodo_fusionado)
+        heap.push(nodo_fusionado)
 
-    return heap[0]
+    return heap.pop()
 
 def generar_codigos_huffman(nodo, codigo_actual="", codigo_caracteres={}):
     if nodo is None:
@@ -128,12 +154,12 @@ def leer_archivo_txt(ruta_archivo):
 
 
 
-arch = './arbol_huffman_actividad_1.json'
+arch = './arbol_huffman.json'
 datos_arbol = leer_texto(arch)
 arbol_huffman = reconstruir_arbol(datos_arbol)
 
 
-ruta_archivo_txt = './texto_actividad_1.txt' 
+ruta_archivo_txt = './texto_cifrado.txt' 
 texto_cifrado = leer_archivo_txt(ruta_archivo_txt)
 
 mensaje_descifrado = descifrar_texto(texto_cifrado, arbol_huffman)
@@ -141,7 +167,7 @@ print(mensaje_descifrado)
 
 
 enlace = "https://github.com/Daavvvvvv/Proyecto_Datos2/tree/master"
-frecuencias = Counter(enlace)
+frecuencias = contar_frecuencias(enlace)
 arbol_huffman= crear_arbol_huffman(frecuencias)
 
 datos_arbol_json = arbol_a_json(arbol_huffman)
