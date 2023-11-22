@@ -1,9 +1,38 @@
 import json
-from collections import Counter
 
 class heapour:
     def __init__(self):
         self.heap = []
+        
+    def _sift_up(self, idx):
+        while idx > 0:
+            parent_idx = (idx - 1) // 2
+            if self.heap[idx] < self.heap[parent_idx]:
+                self.heap[idx], self.heap[parent_idx] = self.heap[parent_idx], self.heap[idx]
+                idx = parent_idx
+            else:
+                break
+
+    def _sift_down(self, idx):
+        n = len(self.heap)
+        while True:
+            left_idx = 2 * idx + 1
+            right_idx = 2 * idx + 2
+            smallest_idx = idx
+
+            if left_idx < n and self.heap[left_idx] < self.heap[smallest_idx]:
+                smallest_idx = left_idx
+            if right_idx < n and self.heap[right_idx] < self.heap[smallest_idx]:
+                smallest_idx = right_idx
+
+            if smallest_idx != idx:
+                self.heap[idx], self.heap[smallest_idx] = self.heap[smallest_idx], self.heap[idx]
+                idx = smallest_idx
+            else:
+                break
+
+    def _swap(self, i, j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
 
     def push(self, item):
         self.heap.append(item)
@@ -11,7 +40,7 @@ class heapour:
 
     def pop(self):
         if len(self.heap) == 0:
-            raise IndexError("Pop from empty heap")
+            raise IndexError("No se puede borrar de una lista que no tiene elementos")
         self._swap(0, len(self.heap) - 1)
         item = self.heap.pop()
         self._sift_down(0)
